@@ -33,7 +33,7 @@ function AddCalendarDays(Year, Month, Object) {
         document.body.appendChild(window.DatePickerTable);
     } else {
         window.DatePickerHolder.style.display = 'block';
-        window.DatePickerTable.style.display = 'block';
+        window.DatePickerTable.style.display = 'table';
         window.DatePickerTable.innerHTML = '';
     }
 
@@ -58,7 +58,7 @@ function AddCalendarDays(Year, Month, Object) {
     var MaxDay = lastDay.getDate();
     var Done = false;
 
-    var HeaderRow = "<table style='width:100%;'><tr><td style='padding: 15px; cursor: pointer;' onclick='AddCalendarDays(window.Year, window.Month - 1);'><</td><td style='padding: 15px;' onclick='AddCalendarMonths(window.Year);'>" + window.Months[window.Month] + " " + window.Year.toString() + "</td><td style='padding: 15px; cursor: pointer;' onclick='AddCalendarDays(window.Year, window.Month + 1);' >></td></tr></table>";
+    var HeaderRow = "<table><tr><td onclick='AddCalendarDays(window.Year, window.Month - 1);'>❮</td><td onclick='AddCalendarMonths(window.Year);'>" + window.Months[window.Month] + " " + window.Year.toString() + "</td><td onclick='AddCalendarDays(window.Year, window.Month + 1);' >❯</td></tr></table>";
 
     var MainContent = "<table><tr><td>Su</td><td>Mo</td><td>Tu</td><td>We</td><td>Th</td><td>Fr</td><td>Sa</td></tr>";
 
@@ -70,7 +70,7 @@ function AddCalendarDays(Year, Month, Object) {
 
             for (c = 0; c < 7; c++) {
 
-                MainContent += "<td class='DateItem' style='width: 25px; height: 25px; cursor: pointer;' onclick='SetDate(this);'>";
+                MainContent += "<td onclick='SetDate(this);'>";
 
                 if (DayOffset > 0) {
                     DayOffset = DayOffset - 1;
@@ -110,7 +110,7 @@ function AddCalendarMonths(Year) {
 
     var Done = false;
 
-    var HeaderRow = "<table style='width:100%;'><tr><td style='padding: 15px; cursor: pointer;' onclick='AddCalendarMonths(window.Year - 1);'><</td><td style='padding: 15px;'>" + window.Year.toString() + "</td><td style='padding: 15px; cursor: pointer;' onclick='AddCalendarMonths(window.Year + 1);' >></td></tr></table>";
+    var HeaderRow = "<table><tr><td onclick='AddCalendarMonths(window.Year - 1);'><</td><td>" + window.Year.toString() + "</td><td onclick='AddCalendarMonths(window.Year + 1);' >></td></tr></table>";
 
     var MainContent = "<table>";
 
@@ -118,7 +118,7 @@ function AddCalendarMonths(Year) {
         MainContent += "<tr>";
         for (c = 0; c < 4; c++) {
             var MonthNo = (r * 4) + c;
-            MainContent += "<td style='width: 45px; height: 40px; cursor: pointer;' onclick='AddCalendarDays(window.Year, " + MonthNo + ", null);'>";
+            MainContent += "<td onclick='AddCalendarDays(window.Year, " + MonthNo + ", null);'>";
             MainContent += window.Months[MonthNo].substring(0, 3);
             MainContent += "</td>";
         }
@@ -143,17 +143,13 @@ function SetDate(Obj) {
 
 function ClearDatePicker() {
     if (window.DatePickerHolder) {
-        //document.body.removeChild(window.DatePickerHolder);
         window.DatePickerHolder.style.display = 'none';
     }
     if (window.DatePickerTable) {
-        //document.body.removeChild(window.DatePickerTable);
         window.DatePickerTable.style.display = 'none';
     }
     window.Month = null;
     window.Year = null;
-    //window.DatePickerHolder = null;
-    //window.DatePickerTable = null;
 }
 
 function FormatDate(DateString) {
